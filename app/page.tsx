@@ -1,103 +1,111 @@
-import Image from "next/image";
+'use client';
+import { useForm } from 'react-hook-form';
+import { FaApple } from 'react-icons/fa';
+import { FcGoogle } from 'react-icons/fc';
+
+type FormData = {
+  email: string;
+  password: string;
+};
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>();
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  const onSubmit = (data: FormData) => {
+    console.log('Form submitted:', data);
+  };
+
+  return (
+    <div className="min-h-screen flex flex-col justify-between bg-white p-4">
+      <div className="flex justify-center mb-4">
+    <img src="/logo.svg" alt="Dropship Logo" className="h-12 w-auto" />
+  </div>
+      <div className="flex justify-center items-center flex-grow">
+        <div className="w-full max-w-md">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className=" shadow-2xl rounded-2xl p-8 w-full bg-gray-50"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            <p className="text-lg font-semibold text-center mb-2">Sign in to Dropship</p>
+            <p className="text-center text-sm mb-6 text-gray-600">
+              Welcome back! Sign in to your account below
+            </p>
+
+            <div className="flex justify-between mb-5 space-x-2">
+              <button
+                type="button"
+                className="flex items-center justify-center gap-2 border-1 border-gray-200 hover:bg-gray-50 w-full py-2 rounded-xl"
+              >
+                <FcGoogle size={20} />
+                Google
+              </button>
+              <button
+                type="button"
+                className="flex items-center justify-center gap-2 border-1 border-gray-200 hover:bg-gray-50 w-full py-2 rounded-xl"
+              >
+                <FaApple size={20} />
+                Apple
+              </button>
+            </div>
+
+            <div className="flex items-center gap-2 my-6">
+              <hr className="flex-grow border-gray-300" />
+              <span className="text-xs text-gray-400 whitespace-nowrap">or sign in with email</span>
+              <hr className="flex-grow border-gray-300" />
+            </div>
+            <div className="mb-4">
+              <input
+                {...register('email', { required: 'Email is required' })}
+                type="email"
+                placeholder="Enter email"
+                className="w-full p-2 border border-gray-200 rounded-xl placeholder:text-sm placeholder:text-gray-400 focus:outline-blue-700 hover:border-blue-700 focus:ring-2 focus:ring-blue-700 focus:outline-none"
+              />
+              {errors.email && (
+                <p className="text-sm text-red-600 mt-1">{errors.email.message}</p>
+              )}
+            </div>
+
+            <div className="mb-4">
+              <input
+                {...register('password', { required: 'Password is required' })}
+                type="password"
+                placeholder="Enter password"
+                className="w-full p-2 border border-gray-200 rounded-xl placeholder:text-sm placeholder:text-gray-400 focus:outline-blue-700 hover:border-blue-700 focus:ring-2 focus:ring-blue-700 focus:outline-none"
+              />
+              {errors.password && (
+                <p className="text-sm text-red-600 mt-1">{errors.password.message}</p>
+              )}
+            </div>
+
+            <button
+              type="submit"
+              className="w-full bg-blue-600 text-white py-2 rounded-xl hover:bg-blue-700 transition-colors"
+            >
+              Sign in
+            </button>
+          </form>
+          <div className="text-center mt-4">
+            <a href="/" className="text-sm text-blue-500 hover:text-blue-700">
+              Forgot your password?
+            </a>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </div>
+
+      <div className="flex justify-center mt-6 mb-4">
+        <div className="w-full max-w-md border-t border-gray-300 pt-4 text-center">
+          <p className="text-sm">
+            New to Dropship?{' '}
+            <a href="/" className="text-blue-500 hover:text-blue-700">
+              Create an account
+            </a>
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
