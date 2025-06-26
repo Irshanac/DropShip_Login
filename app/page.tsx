@@ -30,7 +30,7 @@ export default function Home() {
             onSubmit={handleSubmit(onSubmit)}
             className=" shadow-2xl rounded-2xl p-8 w-full bg-gray-50"
           >
-            <p className="text-lg font-semibold text-center mb-2">Sign in to Dropship</p>
+            <p className="text-lg text-black font-semibold text-center mb-2">Sign in to Dropship</p>
             <p className="text-center text-sm mb-6 text-gray-600">
               Welcome back! Sign in to your account below
             </p>
@@ -38,16 +38,16 @@ export default function Home() {
             <div className="flex justify-between mb-5 space-x-2">
               <button
                 type="button"
-                className="flex items-center justify-center gap-2 border-1 border-gray-200 hover:bg-gray-50 w-full py-2 rounded-xl"
+                className="flex items-center  text-black justify-center gap-2 border-1 border-gray-200 hover:bg-gray-50 w-full py-2 rounded-xl"
               >
                 <FcGoogle size={20} />
                 Google
               </button>
               <button
                 type="button"
-                className="flex items-center justify-center gap-2 border-1 border-gray-200 hover:bg-gray-50 w-full py-2 rounded-xl"
+                className="flex items-center justify-center text-black gap-2 border-1 border-gray-200 hover:bg-gray-50 w-full py-2 rounded-xl"
               >
-                <FaApple size={20} />
+                <FaApple size={20} className='text-black' />
                 Apple
               </button>
             </div>
